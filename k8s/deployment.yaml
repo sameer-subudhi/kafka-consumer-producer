@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: consumer-producer-service
+  name: consumer-producer-service
+spec:
+  selector:
+    matchLabels:
+      app: consumer-producer-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: consumer-producer-service
+    spec:
+      containers:
+        - image: consumer-producer-service:develop
+          imagePullPolicy: Always
+          name: service
+          envFrom:
+            - configMapRef:
+                name: configmap
+            - secretRef:
+                name: secrets
+          command:
+            - "java"
+            - "-Xms4096M"
+            - "-Xmx4096M"
+            - "-Dspring.profiles.active=dev"
+            - "-Djava.security.egd=file:/dev/./urandom"
+            - "-Dcom.sun.management.jmxremote"
+            - "-Dcom.sun.management.jmxremote.port=9999"
+            - "-Dcom.sun.management.jmxremote.authenticate=false"
+            - "-Dcom.sun.management.jmxremote.ssl=false"
+            - "-javaagent:/jmx/jmx_prometheus_javaagent-0.3.0.jar=8089:/jmx/config.yml"
+            - "-jar"
+            - "app.jar"
+            - "com.learn2code.spring.kafka.KafkaStreamsApplication"
+          ports:
+            - containerPort: 8090
+            - containerPort: 8089
+          resources:
+            limits:
+              cpu: 4
+              memory: 16Gi
+            requests:
+              cpu: 2
+              memory: 4Gi
+          volumeMounts:
+            - name: trust-store
+              mountPath: /app/cert/
+            - name: certs
+              mountPath: /app/
+      volumes:
+        - name: trust-store
+          secret:
+            secretName: trust-store
+        - name: certs
+          secret:
+            secretName: certs
+      securityContext:
+        fsGroup: 100
+        runAsUser: 100
