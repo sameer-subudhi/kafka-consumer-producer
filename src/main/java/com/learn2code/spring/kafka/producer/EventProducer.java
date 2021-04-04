@@ -23,7 +23,7 @@ public class EventProducer {
     @Value("${spring.application.version}")
     private String appVersion;
 
-    @Value("${spring.kafka.producer.topics.request}")
+    @Value("${spring.kafka.producer.topics.output}")
     private String requestTopic;
     @Value("${spring.kafka.producer.topics.error}")
     private String errorTopic;

@@ -1,12 +1,12 @@
 spring:
   application:
-    name: CONSUMER-PRODUCER-SERVICE
+    name: consumer-producer-service
     version: 1.0.0
   profiles:
     active: default
 
 logging:
-  path: logs
+  path: /tmp
 
 ---
 spring:
@@ -25,7 +25,7 @@ spring:
         max.poll.interval.ms: 300
     producer:
       topics:
-        request: event-output
+        output: event-output
         error: event-error
       bootstrap-servers: localhost:9092
       properties:

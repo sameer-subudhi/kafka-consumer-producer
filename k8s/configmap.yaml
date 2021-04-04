@@ -5,7 +5,7 @@ metadata:
   namespace: dev
 data:
   logging.path: "/tmp"
-  spring.application.name: "CONSUMER-PRODUCER-SERVICE"
+  spring.application.name: "consumer-producer-service"
   spring.application.version: "1.0.0"
   spring.kafka.consumer.topics: ""
   spring.kafka.consumer.bootstrap-servers: ""
