@@ -1,8 +1,5 @@
 # consumer-producer
-* This is a kafka spring boot application which listen
-
-### Program Arguments
-* -Dspring.application.name=CONSUMER-PRODUCER-SERVICE
+* A spring kafka consumer and producer template app
 
 ### Confluent Kafka Commands
 * confluent local services start
