@@ -1,5 +1,5 @@
 # consumer-producer
-* A spring kafka consumer and producer template app
+* A spring kafka consumer and producer app template
 
 ### Confluent Kafka Commands
 * confluent local services start
